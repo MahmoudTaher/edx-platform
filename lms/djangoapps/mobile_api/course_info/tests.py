@@ -4,15 +4,13 @@ Tests for course_info
 
 import ddt
 from django.conf import settings
-
 from xmodule.html_module import CourseInfoModule
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.xml_importer import import_course_from_xml
-
 from milestones.tests.utils import MilestonesTestCaseMixin
 
-from ..testutils import (
+from mobile_api.tests.testutils import (
     MobileAPITestCase, MobileCourseAccessTestMixin, MobileAuthTestMixin
 )
 
