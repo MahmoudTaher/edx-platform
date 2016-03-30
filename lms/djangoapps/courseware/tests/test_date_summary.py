@@ -173,12 +173,20 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
 
     ## CourseEndDate
 
-    def test_course_end_date_during_course(self):
+    def test_course_end_date_during_course_verified(self):
         self.setup_course_and_user(days_till_start=-1)
         block = CourseEndDate(self.course, self.user)
         self.assertEqual(
             block.description,
-            'After this date you may still view course content even though it is archived.'
+            'To earn a certificate, you must complete all requirements before this date.'
+        )
+
+    def test_course_end_date_during_course_audit(self):
+        self.setup_course_and_user(days_till_start=-1, enrollment_mode=CourseMode.AUDIT)
+        block = CourseEndDate(self.course, self.user)
+        self.assertEqual(
+            block.description,
+            'After this date, course content will be archived.'
         )
 
     def test_course_end_date_after_course(self):
