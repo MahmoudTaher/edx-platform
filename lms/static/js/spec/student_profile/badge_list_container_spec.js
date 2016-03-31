@@ -4,14 +4,14 @@ define(['backbone', 'jquery', 'underscore', 'URI', 'common/js/spec_helpers/ajax_
         'common/js/components/collections/paging_collection'
     ],
     function (Backbone, $, _, URI, AjaxHelpers, LearnerProfileHelpers, BadgeListContainer, PagingCollection) {
-        "use strict";
-        describe("edx.user.BadgeListContainer", function () {
+        'use strict';
+        describe('edx.user.BadgeListContainer', function () {
 
             var view, requests;
 
             var createView = function (requests, badge_list_object) {
                 var badgeCollection = new PagingCollection();
-                badgeCollection.url = "/api/badges/v1/assertions/user/staff/";
+                badgeCollection.url = '/api/badges/v1/assertions/user/staff/';
                 var models = [];
                 _.each(_.range(badge_list_object.count), function (idx) {
                     models.push(LearnerProfileHelpers.makeBadge(idx));
@@ -20,7 +20,7 @@ define(['backbone', 'jquery', 'underscore', 'URI', 'common/js/spec_helpers/ajax_
                 badgeCollection.fetch();
                 var request = AjaxHelpers.currentRequest(requests);
                 var path = new URI(request.url).path();
-                expect(path).toBe("/api/badges/v1/assertions/user/staff/");
+                expect(path).toBe('/api/badges/v1/assertions/user/staff/');
                 AjaxHelpers.respondWithJson(requests, badge_list_object);
                 var badge_list_container = new BadgeListContainer({
                     'collection': badgeCollection
@@ -34,11 +34,11 @@ define(['backbone', 'jquery', 'underscore', 'URI', 'common/js/spec_helpers/ajax_
                 view.$el.remove();
             });
 
-            it("All badges are displayed", function () {
+            it('displays all badges', function () {
                 requests = AjaxHelpers.requests(this);
                 view = createView(requests, {
                     count: 30,
-                    previous: "/arbitrary/url",
+                    previous: '/arbitrary/url',
                     num_pages: 3,
                     next: null,
                     start: 20,
@@ -49,11 +49,11 @@ define(['backbone', 'jquery', 'underscore', 'URI', 'common/js/spec_helpers/ajax_
                 expect(badges.length).toBe(30);
             });
 
-            it("Placeholder is displayed on last page", function () {
+            it('displays placeholder on last page', function () {
                 requests = AjaxHelpers.requests(this);
                 view = createView(requests, {
                     count: 30,
-                    previous: "/arbitrary/url",
+                    previous: '/arbitrary/url',
                     num_pages: 3,
                     next: null,
                     start: 20,
@@ -64,11 +64,11 @@ define(['backbone', 'jquery', 'underscore', 'URI', 'common/js/spec_helpers/ajax_
                 expect(placeholder.length).toBe(1);
             });
 
-            it("Placeholder is not on first page", function () {
+            it('does not display placeholder on first page', function () {
                 requests = AjaxHelpers.requests(this);
                 view = createView(requests, {
                     count: 30,
-                    previous: "/arbitrary/url",
+                    previous: '/arbitrary/url',
                     num_pages: 3,
                     next: null,
                     start: 0,
