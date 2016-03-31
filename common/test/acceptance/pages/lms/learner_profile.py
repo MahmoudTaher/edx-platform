@@ -48,9 +48,15 @@ class Badge(PageObject):
         EmptyPromise(self.modal_focused, "Focus handed to modal").fulfill()
 
     def modal_focused(self):
+        """
+        Return True if the badges model has focus, False otherwise.
+        """
         return BrowserQuery(self.full_view, css=".badges-modal").is_focused()
 
     def close_modal(self):
+        """
+        Close the badges modal and check that it is no longer displayed.
+        """
         BrowserQuery(self.full_view, css=".badges-modal .close").click()
         EmptyPromise(lambda: not self.modal_displayed(), "Share modal dismissed").fulfill()
 
